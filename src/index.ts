@@ -57,7 +57,7 @@ const start = async () => {
         const overdueOrdersCron = startOverdueOrdersCron();
         Logger.info('Overdue order cron scheduled', { schedule: '0 0 * * *' });
 
-        const server = app.listen(AppConfig.port, () => {
+        const server = app.listen(AppConfig.port, '0.0.0.0', () => {
             Logger.info(`Server started on port ${AppConfig.port}`);
         });
 
