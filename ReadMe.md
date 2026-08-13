@@ -1,0 +1,472 @@
+# Orders and Settlements
+
+A full-stack take-home assignment for managing orders, line items, partial payments, due dates, and derived settlement status.
+
+The application includes email/password authentication, an authenticated order dashboard, order and line-item management, payment allocation, status history, CSV export, and an automated overdue-order job.
+
+## Deployment
+
+**Live application:** [https://settleflow.onrender.com/](https://settleflow.onrender.com/)
+
+The application is deployed on Render. The hosted frontend and REST API are served from the same origin.
+
+## Features
+
+- Sign up and log in with email and password.
+- JWT-protected APIs with per-user data isolation.
+- Create, view, update, and delete orders.
+- Add, update, and delete line items before settlement begins.
+- Automatically calculate line-item subtotals and order totals.
+- Record multiple full or partial payments.
+- Prevent payments from exceeding the remaining order balance.
+- Derive `pending`, `partially_paid`, `paid`, and `overdue` statuses.
+- Dashboard with account-wide status counts, pagination, and status filtering.
+- Order detail view with line items and complete payment history.
+- Audit log for status changes.
+- CSV export for a selected due-date range and optional status.
+- Midnight cron job for overdue orders, plus a startup catch-up check.
+- Responsive frontend served by the Express application.
+
+## Technology
+
+| Area | Technology |
+| --- | --- |
+| Backend | Node.js, Express 5, TypeScript |
+| Database | MongoDB native driver |
+| Authentication | JWT, bcrypt |
+| Validation | Joi and service-level business validation |
+| Scheduling | node-cron |
+| Logging | Winston |
+| Frontend | HTML, CSS, and browser JavaScript |
+| Tests | Node.js built-in test runner and TypeScript |
+
+## Prerequisites
+
+- Node.js 18 or newer
+- npm
+- MongoDB running locally or a MongoDB connection string
+
+## Local setup
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Copy the example environment file:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Configure `.env`:
+
+   ```env
+   DATABASE_URL="mongodb://localhost:27017"
+   DB_NAME="order_settlement"
+   JWT_SECRET="replace-with-a-long-random-secret"
+   PORT=3000
+   ```
+
+   `PORT` is optional and defaults to `3000`.
+
+4. Start MongoDB if using a local instance.
+
+5. Run the application in development mode:
+
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000).
+
+The application creates its required MongoDB indexes during startup. No separate migration or seed step is required.
+
+## Production build
+
+```bash
+npm run build
+npm start
+```
+
+The TypeScript backend is compiled to `dist`. The frontend in `client/` is served as static content by Express.
+
+## Environment variables
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `DATABASE_URL` | Yes | MongoDB connection string |
+| `DB_NAME` | Recommended | Database name used by the MongoDB client |
+| `JWT_SECRET` | Yes | Secret used to sign and verify access tokens |
+| `PORT` | No | HTTP port; defaults to `3000` |
+| `NODE_ENV` | No | Runtime environment; defaults to `development` |
+| `LOG_LEVEL` | No | Winston log level |
+
+## Architecture
+
+The backend follows a route → controller → service → database structure:
+
+```text
+src/
+├── config/          Database and application configuration
+├── crons/           Midnight overdue-order scheduler
+├── orders/          Order routes, controller, service, and persistence
+├── payments/        Per-order in-process payment queue
+├── users/           Authentication and user persistence
+├── utils/           JWT, middleware, errors, and logging
+├── container.ts     Application dependency wiring
+└── index.ts         Express and application startup
+
+client/
+├── index.html       Frontend shell
+├── app.js           Routing, API calls, and UI behavior
+└── styles.css       Responsive application styling
+
+tests/
+├── orders.payment.test.ts
+└── orders.cron.test.ts
+```
+
+MongoDB stores payments, line items, and status-history entries inside their parent order document. This keeps order totals, settlement state, and their supporting history together.
+
+## API conventions
+
+### Base URL
+
+```text
+http://localhost:3000/api/v1
+```
+
+### Authentication
+
+Sign-up and login responses include an `accessToken`. All order endpoints require:
+
+```http
+Authorization: Bearer <accessToken>
+```
+
+Tokens expire after seven days. Every order query and mutation is scoped to the authenticated user ID from the verified token.
+
+### Money
+
+API monetary values are integer minor units to avoid floating-point rounding errors.
+
+```json
+{
+  "unitPrice": 50000,
+  "amount": 40000
+}
+```
+
+In the current INR interface, these values represent ₹500.00 and ₹400.00. The frontend converts between display values and minor units.
+
+### Dates
+
+Dates are accepted as ISO-8601 values and returned as ISO timestamps. Payment time is generated by the server when a payment is accepted.
+
+### Success response
+
+```json
+{
+  "success": true,
+  "data": {}
+}
+```
+
+Paginated order responses also include `metadata`.
+
+### Error response
+
+```json
+{
+  "success": false,
+  "message": "Payment exceeds the order total by 100. Please make a payment for the remaining amount of 60000 only",
+  "statusCode": 400
+}
+```
+
+## API overview
+
+### Authentication
+
+| Method | Endpoint | Description | Authentication |
+| --- | --- | --- | --- |
+| `POST` | `/users` | Create an account | No |
+| `POST` | `/users/login` | Log in | No |
+
+Sign up:
+
+```json
+{
+  "name": "Test User",
+  "email": "test@example.com",
+  "password": "password123"
+}
+```
+
+Login:
+
+```json
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+```
+
+### Orders
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `POST` | `/orders` | Create an order |
+| `GET` | `/orders` | List the current user's orders |
+| `GET` | `/orders/:orderId` | Get an order with line items and payments |
+| `PATCH` | `/orders/:orderId` | Update an order's due date |
+| `DELETE` | `/orders/:orderId` | Delete an unpaid order |
+
+Create an order:
+
+```json
+{
+  "dueDate": "2026-08-20",
+  "lineItems": [
+    {
+      "description": "Implementation service",
+      "quantity": 2,
+      "unitPrice": 50000
+    }
+  ]
+}
+```
+
+The server calculates each line item's `subtotal` and the order's `orderTotal`.
+
+List query parameters:
+
+| Parameter | Values / format | Default |
+| --- | --- | --- |
+| `page` | Positive integer | `1` |
+| `limit` | Positive integer | `10` |
+| `sortBy` | `createdAt`, `dueDate`, or `status` | `createdAt` |
+| `status` | `pending`, `partially_paid`, `paid`, or `overdue` | All |
+| `dueDateFrom` | ISO date | None |
+| `dueDateTo` | ISO date | None |
+
+The list metadata includes pagination and account-wide counts for total, paid, open, and overdue orders. These summary counts do not change as the user moves between pages.
+
+Update due date:
+
+```json
+{
+  "dueDate": "2026-08-28"
+}
+```
+
+### Line items
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `POST` | `/orders/:orderId/items` | Add one or more line items |
+| `PATCH` | `/orders/:orderId/items/:lineItemId` | Update a line item |
+| `DELETE` | `/orders/:orderId/items/:lineItemId` | Delete a line item |
+
+Add line items:
+
+```json
+{
+  "lineItems": [
+    {
+      "description": "Support package",
+      "quantity": 1,
+      "unitPrice": 20000
+    }
+  ]
+}
+```
+
+Update a line item:
+
+```json
+{
+  "description": "Premium support package",
+  "quantity": 2,
+  "unitPrice": 25000
+}
+```
+
+### Payments
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `POST` | `/orders/:orderId/payments` | Record a payment |
+
+```json
+{
+  "amount": 40000,
+  "note": "First installment"
+}
+```
+
+The payment date is set to the server's current time. Payment history is returned as part of `GET /orders/:orderId`.
+
+### Audit log and export
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/orders/:orderId/status-log` | Get timestamped status history |
+| `GET` | `/orders/export/csv` | Export orders and line items as CSV |
+
+Export query example:
+
+```text
+/orders/export/csv?dueDateFrom=2026-08-01&dueDateTo=2026-08-31&status=paid
+```
+
+The export date range applies to order due dates. `status` is optional.
+
+The included [Postman collection](./Order%20Settlement.postman_collection.json) contains example requests for the API.
+
+## Business rules
+
+### Order calculations
+
+- The frontend accepts whole-number quantities starting at `1`; the service rejects quantities less than or equal to zero.
+- Unit price must be greater than zero.
+- Line subtotal is `quantity × unitPrice`.
+- Order total is the sum of all line-item subtotals.
+- Amount paid is the sum of accepted payments.
+- Amount due is `orderTotal - paymentsTotal`.
+
+All calculations use integer minor units.
+
+### Status derivation
+
+| Status | Rule |
+| --- | --- |
+| `pending` | No payment has been recorded and the due date has not passed |
+| `partially_paid` | Some payment has been recorded, the total is below the order total, and the due date has not passed |
+| `paid` | Total payments exactly equal the order total |
+| `overdue` | The due date has passed and the order is not fully paid |
+
+Status precedence is:
+
+1. `paid` when the full balance is settled, even if the due date has passed.
+2. `overdue` when the due date has passed and a balance remains.
+3. `partially_paid` when a payment exists and the due date has not passed.
+4. `pending` otherwise.
+
+### Edge cases and decisions
+
+- An overdue order becomes `paid` when its remaining balance is paid in full.
+- A partial payment made after the due date leaves the order `overdue`.
+- Payments must be greater than zero.
+- A payment that would exceed the remaining balance is rejected with the excess and maximum remaining amount in the error message.
+- Multiple payments are allowed until the order is fully paid.
+- Orders are editable only before the first payment. After settlement begins, the due date and line items are read-only and the order cannot be deleted. This prevents historical payments from becoming inconsistent with a changed order total.
+- A new order must have at least one line item and cannot have a due date in the past.
+
+## Overdue-order processing
+
+At application startup, a catch-up operation marks eligible past-due orders as overdue. A `node-cron` task then runs at midnight using:
+
+```text
+0 0 * * *
+```
+
+The cron delegates persistence to `OrderDB.markOverdueOrders()`. The database method:
+
+- Selects only `pending` and `partially_paid` orders with a past due date.
+- Writes updates in batches of 500.
+- Rechecks status and due date in each update to remain safe if multiple application instances run simultaneously.
+- Gives every status-history entry its own `ObjectId`.
+- Adds an audit entry with the transition timestamp.
+
+The schedule uses the server process timezone. Production deployment should set and document the server timezone or pass an explicit timezone to `node-cron`.
+
+## Payment concurrency
+
+Payment allocation is protected at two levels:
+
+1. An in-memory queue serializes payment requests by order ID within one application process.
+2. MongoDB performs an atomic conditional update requiring `paymentsTotal + newAmount <= orderTotal`.
+
+The MongoDB condition is the final protection when requests reach different application instances. If another request consumes the remaining balance between the initial read and update, the losing request is rejected as an over-payment with the latest remaining amount.
+
+This prevents two simultaneous requests from allocating more money than the order total without requiring a global application lock.
+
+## Testing
+
+Run all tests:
+
+```bash
+npm test
+```
+
+The current suite covers:
+
+- Partial payment allocation.
+- Pending-to-partially-paid transition.
+- Partially-paid-to-paid transition.
+- Payments on past-due orders.
+- Over-payment rejection without mutation.
+- Same-process simultaneous payment serialization.
+- Cross-process payment races and the atomic MongoDB guard.
+- MongoDB payment status-transition pipeline.
+- Overdue-order selection, batching, guarded writes, and unique audit IDs.
+- Empty overdue runs.
+- Cron schedule, delegation, success logging, and failure logging.
+
+The tests use focused in-memory database doubles to exercise service business rules and inspect the generated MongoDB operations. A production-ready suite should additionally include MongoDB integration tests and browser-level end-to-end tests.
+
+## Assignment sample scenario
+
+Using integer minor units:
+
+1. Create an order with `2 × 50000` for a total of `100000` (₹1,000.00), due in seven days.
+2. Record a payment of `40000` (₹400.00). The status becomes `partially_paid` and the amount due is ₹600.00.
+3. Record a payment of `60000` (₹600.00). The status becomes `paid` and the amount due is ₹0.00.
+4. Attempt another payment of `100` (₹1.00). The API rejects it because no balance remains.
+
+This flow is covered by the payment tests and can also be exercised through the frontend or Postman collection.
+
+## Assumptions and tradeoffs
+
+- The authenticated account currently acts as both owner and displayed customer. Orders are isolated by `userId`, and the dashboard displays that user's name and email. A multi-customer workspace would add an explicit `customerName` or customer entity to each order.
+- Payment timestamps are assigned by the server when requests are accepted. Backdated payment entry is not currently supported.
+- API consumers are expected to send whole-number quantities and integer minor-unit money values. The frontend enforces those input conventions; comprehensive API schemas would enforce them independently at the HTTP boundary.
+- Currency is not stored per order. The UI currently formats minor units as INR.
+- Payments and status history are embedded in the order document for simple, atomic settlement updates. Very large payment histories could eventually require separate collections.
+- JWTs are stored in browser local storage for the scope of this assignment. A production application should consider secure, HTTP-only cookies and refresh-token rotation.
+- The frontend is deliberately dependency-light and served from the same process as the API.
+- Refunds are outside the current scope.
+
+## Production improvements
+
+- Add explicit per-order customer data or a customer entity for multi-customer accounts.
+- Add configurable currency and locale per account or order.
+- Add a user-supplied payment date where backdated payments are required.
+- Add request validation schemas for all order and payment payloads.
+- Add MongoDB integration tests and frontend end-to-end tests.
+- Use secure HTTP-only authentication cookies, refresh tokens, rate limiting, and account recovery.
+- Add CSRF protection if cookie-based authentication is introduced.
+- Introduce distributed cron leadership or run the cron as a single dedicated worker in a horizontally scaled deployment.
+- Add metrics and alerting for failed cron executions, payment conflicts, and API latency.
+- Add structured API documentation such as OpenAPI.
+- Review retention and archival behavior for large embedded payment and audit histories.
+
+## Additional verification
+
+Health check:
+
+```text
+GET /health
+```
+
+Expected response:
+
+```json
+{
+  "success": true,
+  "message": "OK"
+}
+```
