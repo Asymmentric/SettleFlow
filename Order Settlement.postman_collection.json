@@ -1,0 +1,1969 @@
+{
+	"info": {
+		"_postman_id": "97d0f874-4395-474a-8674-9e37a4874723",
+		"name": "Order Settlement",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46772382"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test User 1\",\n    \"email\": \"john@email.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Test User 1\",\n    \"email\": \"john@email.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/users",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "453"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c5-NDkPBgY7HX7u6jtwPySTh/bToDA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Aug 2026 09:32:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6a78494944c7585685475773\",\n        \"name\": \"Test User 1\",\n        \"email\": \"john@email.com\",\n        \"password\": \"12345678\",\n        \"createdAt\": \"2026-08-09T09:32:57.692Z\",\n        \"updatedAt\": \"2026-08-09T09:32:57.692Z\",\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNzg0OTQ5NDRjNzU4NTY4NTQ3NTc3MyIsImVtYWlsIjoiam9obkBlbWFpbC5jb20iLCJuYW1lIjoiVGVzdCBVc2VyIDEiLCJpYXQiOjE3ODYyNjc5NzcsImV4cCI6MTc4Njg3Mjc3N30.dbA4dmyP0UoQYORpOnVTY9N2TYxzGhbyD8qw7HSN7NA\"\n    }\n}"
+						},
+						{
+							"name": "Duplicate User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Test User 1\",\n    \"email\": \"john@email.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/users",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"52-+ByD40yMcryp0w24Ma8ztg1m21o\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Aug 2026 09:38:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"User with this email already exists\",\n    \"statusCode\": 400\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"john@email.com\",\n    \"password\":\"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"john@email.com\",\n    \"password\":\"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "431"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1af-4bbs0opKBoLoFDCyHILwi7JXOGA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Aug 2026 10:14:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6a784c02ee34e3918e0dc89e\",\n        \"email\": \"john@email.com\",\n        \"name\": \"Test User 1\",\n        \"createdAt\": \"2026-08-09T09:44:34.703Z\",\n        \"updatedAt\": \"2026-08-09T09:44:34.703Z\",\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNzg0YzAyZWUzNGUzOTE4ZTBkYzg5ZSIsImVtYWlsIjoiam9obkBlbWFpbC5jb20iLCJuYW1lIjoiVGVzdCBVc2VyIDEiLCJpYXQiOjE3ODYyNzA0OTAsImV4cCI6MTc4Njg3NTI5MH0.jSczJGj03fuqAX1_5bvVdpM3cdkhnlS0UgRCIHSOKMk\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dueDate\":\"2026-08-21\",\n    \"lineItems\":[\n        {\n            \"description\":\"Borosil Bottle\",\n            \"quantity\": 2,\n            \"unitPrice\": 50000\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dueDate\":\"2026-08-20\",\n    \"lineItems\":[\n        {\n            \"description\":\"Apple Iphone 1\",\n            \"quantity\": 2,\n            \"unitPrice\": 50000\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/orders",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "62"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3e-DAMygJk9TXs95icWDGvN9ZMmtfM\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Aug 2026 08:13:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"orderId\": \"6a7ad9afe109f55d4c60f101\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Orders",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/v1/orders",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1615"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"64f-jHptExAWcwF0zpxawj50L10K1pg\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Aug 2026 14:38:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"metadata\": {\n        \"totalCount\": 2,\n        \"page\": 1,\n        \"limit\": 10,\n        \"totalPages\": 1\n    },\n    \"data\": [\n        {\n            \"_id\": \"6a7b1c6e499978a73c8e4fe2\",\n            \"userId\": \"6a784c02ee34e3918e0dc89e\",\n            \"dueDate\": \"2026-08-19T18:30:00.000Z\",\n            \"lineItems\": [\n                {\n                    \"_id\": \"6a7b1c6e499978a73c8e4fdf\",\n                    \"description\": \"Apple iPhone 17 Pro\",\n                    \"quantity\": 3,\n                    \"unitPrice\": 51000,\n                    \"subtotal\": 153000\n                },\n                {\n                    \"_id\": \"6a7b1c6e499978a73c8e4fe0\",\n                    \"description\": \"Samsung Galaxy S27\",\n                    \"quantity\": 1,\n                    \"unitPrice\": 40000,\n                    \"subtotal\": 40000\n                }\n            ],\n            \"status\": \"pending\",\n            \"payments\": [],\n            \"paymentsTotal\": 0,\n            \"orderTotal\": 193000,\n            \"statusHistory\": [\n                {\n                    \"_id\": \"6a7b1c6e499978a73c8e4fe1\",\n                    \"status\": \"pending\",\n                    \"createdAt\": \"2026-08-11T12:58:22.099Z\",\n                    \"updatedAt\": \"2026-08-11T12:58:22.099Z\"\n                }\n            ],\n            \"createdAt\": \"2026-08-11T12:58:22.099Z\",\n            \"updatedAt\": \"2026-08-11T12:58:22.099Z\",\n            \"user\": {\n                \"_id\": \"6a784c02ee34e3918e0dc89e\",\n                \"name\": \"Test User 1\",\n                \"email\": \"john@email.com\",\n                \"createdAt\": \"2026-08-09T09:44:34.703Z\",\n                \"updatedAt\": \"2026-08-09T09:44:34.703Z\"\n            }\n        },\n        {\n            \"_id\": \"6a7b1c3d499978a73c8e4fde\",\n            \"userId\": \"6a784c02ee34e3918e0dc89e\",\n            \"dueDate\": \"2026-08-19T18:30:00.000Z\",\n            \"lineItems\": [\n                {\n                    \"_id\": \"6a7b1c3d499978a73c8e4fdc\",\n                    \"description\": \"Apple Iphone 1\",\n                    \"quantity\": 2,\n                    \"unitPrice\": 50000,\n                    \"subtotal\": 100000\n                }\n            ],\n            \"status\": \"pending\",\n            \"payments\": [],\n            \"paymentsTotal\": 0,\n            \"orderTotal\": 100000,\n            \"statusHistory\": [\n                {\n                    \"_id\": \"6a7b1c3d499978a73c8e4fdd\",\n                    \"status\": \"pending\",\n                    \"createdAt\": \"2026-08-11T12:57:33.926Z\",\n                    \"updatedAt\": \"2026-08-11T12:57:33.926Z\"\n                }\n            ],\n            \"createdAt\": \"2026-08-11T12:57:33.926Z\",\n            \"updatedAt\": \"2026-08-11T12:57:33.926Z\",\n            \"user\": {\n                \"_id\": \"6a784c02ee34e3918e0dc89e\",\n                \"name\": \"Test User 1\",\n                \"email\": \"john@email.com\",\n                \"createdAt\": \"2026-08-09T09:44:34.703Z\",\n                \"updatedAt\": \"2026-08-09T09:44:34.703Z\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Order By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/:orderId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "6a7c681c98fbf8a0f197f91c"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Order By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/v1/orders/:orderId",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										":orderId"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "6a7b1c6e499978a73c8e4fe2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "848"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"350-s6R/zQraSUwyc4axJ0cni60kOa0\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Aug 2026 14:39:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6a7b1c6e499978a73c8e4fe2\",\n        \"userId\": \"6a784c02ee34e3918e0dc89e\",\n        \"dueDate\": \"2026-08-19T18:30:00.000Z\",\n        \"lineItems\": [\n            {\n                \"_id\": \"6a7b1c6e499978a73c8e4fdf\",\n                \"description\": \"Apple iPhone 17 Pro\",\n                \"quantity\": 3,\n                \"unitPrice\": 51000,\n                \"subtotal\": 153000\n            },\n            {\n                \"_id\": \"6a7b1c6e499978a73c8e4fe0\",\n                \"description\": \"Samsung Galaxy S27\",\n                \"quantity\": 1,\n                \"unitPrice\": 40000,\n                \"subtotal\": 40000\n            }\n        ],\n        \"status\": \"pending\",\n        \"payments\": [],\n        \"paymentsTotal\": 0,\n        \"orderTotal\": 193000,\n        \"statusHistory\": [\n            {\n                \"_id\": \"6a7b1c6e499978a73c8e4fe1\",\n                \"status\": \"pending\",\n                \"createdAt\": \"2026-08-11T12:58:22.099Z\",\n                \"updatedAt\": \"2026-08-11T12:58:22.099Z\"\n            }\n        ],\n        \"createdAt\": \"2026-08-11T12:58:22.099Z\",\n        \"updatedAt\": \"2026-08-11T12:58:22.099Z\",\n        \"user\": {\n            \"_id\": \"6a784c02ee34e3918e0dc89e\",\n            \"name\": \"Test User 1\",\n            \"email\": \"john@email.com\",\n            \"createdAt\": \"2026-08-09T09:44:34.703Z\",\n            \"updatedAt\": \"2026-08-09T09:44:34.703Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dueDate\":\"2026-08-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6a7caafb39fa53bf15ba7970"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Order",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dueDate\":\"2026-08-01\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/orders/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6a7caafb39fa53bf15ba7970"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "832"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"340-BHlvD+rTAC6lcteieaoxx0WM2x4\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Aug 2026 17:19:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6a7caafb39fa53bf15ba7970\",\n        \"userId\": \"6a784c02ee34e3918e0dc89e\",\n        \"dueDate\": \"2026-07-31T18:30:00.000Z\",\n        \"lineItems\": [\n            {\n                \"_id\": \"6a7caafb39fa53bf15ba796e\",\n                \"description\": \"Borosil Bottle\",\n                \"quantity\": 2,\n                \"unitPrice\": 50000,\n                \"subtotal\": 100000,\n                \"createdAt\": \"2026-08-12T17:18:51.725Z\",\n                \"updatedAt\": \"2026-08-12T17:18:51.725Z\"\n            }\n        ],\n        \"status\": \"overdue\",\n        \"payments\": [],\n        \"paymentsTotal\": 0,\n        \"orderTotal\": 100000,\n        \"statusHistory\": [\n            {\n                \"_id\": \"6a7caafb39fa53bf15ba796f\",\n                \"status\": \"pending\",\n                \"createdAt\": \"2026-08-12T17:18:51.725Z\",\n                \"updatedAt\": \"2026-08-12T17:18:51.725Z\"\n            },\n            {\n                \"_id\": \"6a7cab2439fa53bf15ba7971\",\n                \"status\": \"overdue\",\n                \"note\": \"Order due date updated from 2026-08-21 to 2026-08-01.\",\n                \"createdAt\": \"2026-08-12T17:19:32.107Z\",\n                \"updatedAt\": \"2026-08-12T17:19:32.107Z\"\n            }\n        ],\n        \"createdAt\": \"2026-08-12T17:18:51.725Z\",\n        \"updatedAt\": \"2026-08-12T17:19:32.107Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Line Item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lineItems\":[\n        {\n            \"description\":\"Charger Cable\",\n            \"quantity\":1,\n            \"unitPrice\":2000\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/:orderId/items",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":orderId",
+								"items"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "6a7b1c3d499978a73c8e4fde"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Line Item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"lineItems\":[\n        {\n            \"description\":\"Charger Cable\",\n            \"quantity\":1,\n            \"unitPrice\":2000\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/orders/:orderId/items",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										":orderId",
+										"items"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "6a7b1c3d499978a73c8e4fde"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "748"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2ec-aTPC92Xjh5TB5Q3QSGj2jB6LZ0Q\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Aug 2026 16:08:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6a7b1c3d499978a73c8e4fde\",\n        \"userId\": \"6a784c02ee34e3918e0dc89e\",\n        \"dueDate\": \"2026-08-19T18:30:00.000Z\",\n        \"lineItems\": [\n            {\n                \"_id\": \"6a7b1c3d499978a73c8e4fdc\",\n                \"description\": \"Apple Iphone 1\",\n                \"quantity\": 2,\n                \"unitPrice\": 50000,\n                \"subtotal\": 100000\n            },\n            {\n                \"_id\": \"6a7b48f7b3eff80858ed83d7\",\n                \"description\": \"Charger Cable\",\n                \"quantity\": 1,\n                \"unitPrice\": 2000,\n                \"subtotal\": 2000,\n                \"createdAt\": \"2026-08-11T16:08:23.792Z\",\n                \"updatedAt\": \"2026-08-11T16:08:23.792Z\"\n            }\n        ],\n        \"status\": \"pending\",\n        \"payments\": [],\n        \"paymentsTotal\": 0,\n        \"orderTotal\": 102000,\n        \"statusHistory\": [\n            {\n                \"_id\": \"6a7b1c3d499978a73c8e4fdd\",\n                \"status\": \"pending\",\n                \"createdAt\": \"2026-08-11T12:57:33.926Z\",\n                \"updatedAt\": \"2026-08-11T12:57:33.926Z\"\n            }\n        ],\n        \"createdAt\": \"2026-08-11T12:57:33.926Z\",\n        \"updatedAt\": \"2026-08-11T16:08:23.792Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Line Item",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unitPrice\":\"1200\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/:orderId/items/:itemId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":orderId",
+								"items",
+								":itemId"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "6a7b1c3d499978a73c8e4fde"
+								},
+								{
+									"key": "itemId",
+									"value": "6a7b48f7b3eff80858ed83d7"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Line Item",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"unitPrice\":\"1200\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/orders/:orderId/items/:itemId",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										":orderId",
+										"items",
+										":itemId"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "6a7b1c3d499978a73c8e4fde"
+										},
+										{
+											"key": "itemId",
+											"value": "6a7b48f7b3eff80858ed83d7"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "763"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2fb-VslhmaxIXDIUmGyFl8qoNpt2TWQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Aug 2026 04:14:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6a7b1c3d499978a73c8e4fde\",\n        \"userId\": \"6a784c02ee34e3918e0dc89e\",\n        \"dueDate\": \"2026-08-19T18:30:00.000Z\",\n        \"lineItems\": [\n            {\n                \"_id\": \"6a7b1c3d499978a73c8e4fdc\",\n                \"description\": \"Apple Iphone 1\",\n                \"quantity\": 2,\n                \"unitPrice\": 50000,\n                \"subtotal\": 100000\n            },\n            {\n                \"_id\": \"6a7b48f7b3eff80858ed83d7\",\n                \"description\": \"Charging Cable and Adapter\",\n                \"quantity\": 2,\n                \"unitPrice\": \"1200\",\n                \"subtotal\": 2400,\n                \"createdAt\": \"2026-08-11T16:08:23.792Z\",\n                \"updatedAt\": \"2026-08-11T16:08:23.792Z\"\n            }\n        ],\n        \"status\": \"pending\",\n        \"payments\": [],\n        \"paymentsTotal\": 0,\n        \"orderTotal\": 102400,\n        \"statusHistory\": [\n            {\n                \"_id\": \"6a7b1c3d499978a73c8e4fdd\",\n                \"status\": \"pending\",\n                \"createdAt\": \"2026-08-11T12:57:33.926Z\",\n                \"updatedAt\": \"2026-08-11T12:57:33.926Z\"\n            }\n        ],\n        \"createdAt\": \"2026-08-11T12:57:33.926Z\",\n        \"updatedAt\": \"2026-08-12T04:14:18.960Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Make Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\":0,\n    \"note\":\"Final amount\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/:orderId/payments",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":orderId",
+								"payments"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "6a7b1c3d499978a73c8e4fde"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Line Item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/:id/items/:itemId",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":id",
+								"items",
+								":itemId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6a7c681c98fbf8a0f197f91c"
+								},
+								{
+									"key": "itemId",
+									"value": "6a7c681598fbf8a0f197f91a"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Line Item",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/v1/orders/:id/items/:itemId",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										":id",
+										"items",
+										":itemId"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6a7c681c98fbf8a0f197f91c"
+										},
+										{
+											"key": "itemId",
+											"value": "6a7c681598fbf8a0f197f91a"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "440"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b8-/2UUgq+PZNfQGc7IDJYXOR5qpgc\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Aug 2026 12:35:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6a7c681c98fbf8a0f197f91c\",\n        \"userId\": \"6a784c02ee34e3918e0dc89e\",\n        \"dueDate\": \"2026-08-19T18:30:00.000Z\",\n        \"lineItems\": [],\n        \"status\": \"pending\",\n        \"payments\": [],\n        \"paymentsTotal\": 0,\n        \"orderTotal\": 0,\n        \"statusHistory\": [\n            {\n                \"_id\": \"6a7c681598fbf8a0f197f91b\",\n                \"status\": \"pending\",\n                \"createdAt\": \"2026-08-12T12:33:25.929Z\",\n                \"updatedAt\": \"2026-08-12T12:33:25.929Z\"\n            }\n        ],\n        \"createdAt\": \"2026-08-12T12:33:25.929Z\",\n        \"updatedAt\": \"2026-08-12T12:35:17.215Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6a7c681c98fbf8a0f197f91c"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Order",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/v1/orders/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6a7c681c98fbf8a0f197f91c"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-HtOCZGZcHrXU49poIDMzMQZouj4\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Aug 2026 12:36:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Order deleted successfully.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Export CSV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/export/csv?dueDateFrom=2026-07-01&dueDateTo=2026-08-20",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"export",
+								"csv"
+							],
+							"query": [
+								{
+									"key": "dueDateFrom",
+									"value": "2026-07-01"
+								},
+								{
+									"key": "dueDateTo",
+									"value": "2026-08-20"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Orders Csv",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/api/v1/orders/export/csv?dueDateFrom=2026-07-01&dueDateTo=2026-08-20",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"export",
+										"csv"
+									],
+									"query": [
+										{
+											"key": "dueDateFrom",
+											"value": "2026-07-01"
+										},
+										{
+											"key": "dueDateTo",
+											"value": "2026-08-20"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/csv"
+								},
+								{
+									"key": "Content-Disposition",
+									"value": "attachment; filename=\"orders.csv\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Aug 2026 15:57:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "Order ID,Item ID,User Name,User Email,Due Date,Status,Order Total,Payments Total,Item Desc,Item Qty,Item Unit Price,Item Total\n6a7b1c3d499978a73c8e4fde,,Test User 1,john@email.com,20-Aug-2026,PAID,1024.00,1024.00\n,6a7b1c3d499978a73c8e4fdc,,,,,,,Apple Iphone 1,2,500.00,1000.00\n,6a7b48f7b3eff80858ed83d7,,,,,,,Charging Cable and Adapter,2,12.00,24.00\n6a7b1c6e499978a73c8e4fe2,,Test User 1,john@email.com,20-Aug-2026,PARTIALLY PAID,1930.00,7.00\n,6a7b1c6e499978a73c8e4fdf,,,,,,,Apple iPhone 17 Pro,3,510.00,1530.00\n,6a7b1c6e499978a73c8e4fe0,,,,,,,Samsung Galaxy S27,1,400.00,400.00\n"
+						}
+					]
+				},
+				{
+					"name": "Status Log",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/orders/:id/status-log",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":id",
+								"status-log"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6a7caafb39fa53bf15ba7970"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Status Log",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/v1/orders/:id/status-log",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										":id",
+										"status-log"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6a7caafb39fa53bf15ba7970"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "703"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2bf-kIHAoauU8L/RaTjgOrKD65UXRJs\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Aug 2026 17:35:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6a7caafb39fa53bf15ba7970\",\n        \"dueDate\": \"2026-07-31T18:30:00.000Z\",\n        \"status\": \"overdue\",\n        \"statusHistory\": [\n            {\n                \"_id\": \"6a7caafb39fa53bf15ba796f\",\n                \"status\": \"pending\",\n                \"createdAt\": \"2026-08-12T17:18:51.725Z\",\n                \"updatedAt\": \"2026-08-12T17:18:51.725Z\"\n            },\n            {\n                \"_id\": \"6a7cab2439fa53bf15ba7971\",\n                \"status\": \"overdue\",\n                \"note\": \"Order due date updated from 2026-08-21 to 2026-08-01.\",\n                \"createdAt\": \"2026-08-12T17:19:32.107Z\",\n                \"updatedAt\": \"2026-08-12T17:19:32.107Z\"\n            }\n        ],\n        \"createdAt\": \"2026-08-12T17:18:51.725Z\",\n        \"updatedAt\": \"2026-08-12T17:19:32.107Z\",\n        \"user\": {\n            \"_id\": \"6a784c02ee34e3918e0dc89e\",\n            \"name\": \"Test User 1\",\n            \"email\": \"john@email.com\",\n            \"createdAt\": \"2026-08-09T09:44:34.703Z\",\n            \"updatedAt\": \"2026-08-09T09:44:34.703Z\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNzg0YzAyZWUzNGUzOTE4ZTBkYzg5ZSIsImVtYWlsIjoiam9obkBlbWFpbC5jb20iLCJuYW1lIjoiVGVzdCBVc2VyIDEiLCJpYXQiOjE3ODY0MzU1NjEsImV4cCI6MTc4NzA0MDM2MX0.y-abbwPqISugUPdQ4Ywt98wQZGUm6Lc37ibfwauu6wE",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
