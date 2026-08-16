@@ -1,6 +1,6 @@
 # Orders and Settlements
 
-A full-stack take-home assignment for managing orders, line items, partial payments, due dates, and derived settlement status.
+A full-stack application for managing orders, line items, partial payments, due dates, and derived settlement status.
 
 The application includes email/password authentication, an authenticated order dashboard, order and line-item management, payment allocation, status history, CSV export, and an automated overdue-order job.
 
